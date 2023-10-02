@@ -1,2 +1,2 @@
 # pokedex
-A catalog of all 1st generation pokemon
+A catalog of all Pokemon's generation, with legendary filter.
