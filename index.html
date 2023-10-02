@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex</title>
+    <link rel="stylesheet" href="./main.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <header>
+        <nav class="nav">
+            <img src="./img/logo.png" alt="Logo Pokédex">
+            <ul class="nav-list">
+                <li class="nav-item"><button class="btn btn-header btn-generacion 1gen" id="1gen">1° Gen</button></li>
+                <li class="nav-item"><button class="btn btn-header btn-generacion 2gen" id="2gen">2° Gen</button></li>
+                <li class="nav-item"><button class="btn btn-header btn-generacion 3gen" id="3gen">3° Gen</button></li>
+                <li class="nav-item"><button class="btn btn-header btn-generacion 4gen" id="4gen">4° Gen</button></li>
+                <li class="nav-item"><button class="btn btn-header btn-generacion 5gen" id="5gen">5° Gen</button></li>
+                <li class="nav-item"><button class="btn btn-header btn-generacion 6gen" id="6gen">6° Gen</button></li>
+                <li class="nav-item"><button class="btn btn-header btn-generacion 7gen" id="7gen">7° Gen</button></li>
+                <li class="nav-item"><button class="btn btn-header btn-generacion 8gen" id="8gen">8° Gen</button></li>
+                <li class="nav-item"><button class="btn btn-header btn-generacion 9gen" id="9gen">9° Gen</button></li>
+            </ul>
+            <ul class="nav-list">
+                <li class="nav-item"><button class="btn btn-header btn-tipo normal" id="normal">Normal</button></li>
+                <li class="nav-item"><button class="btn btn-header btn-tipo fire" id="fire">Fire</button></li>
+                <li class="nav-item"><button class="btn btn-header btn-tipo water" id="water">Water</button></li>
+                <li class="nav-item"><button class="btn btn-header btn-tipo grass" id="grass">Grass</button></li>
+                <li class="nav-item"><button class="btn btn-header btn-tipo electric" id="electric">Electric</button>
+                </li>
+                <li class="nav-item"><button class="btn btn-header btn-tipo ice" id="ice">Ice</button></li>
+                <li class="nav-item"><button class="btn btn-header btn-tipo fighting" id="fighting">Fighting</button>
+                </li>
+                <li class="nav-item"><button class="btn btn-header btn-tipo poison" id="poison">Poison</button></li>
+                <li class="nav-item"><button class="btn btn-header btn-tipo ground" id="ground">Ground</button></li>
+                <li class="nav-item"><button class="btn btn-header btn-tipo flying" id="flying">Flying</button></li>
+                <li class="nav-item"><button class="btn btn-header btn-tipo psychic" id="psychic">Psychic</button></li>
+                <li class="nav-item"><button class="btn btn-header btn-tipo bug" id="bug">Bug</button></li>
+                <li class="nav-item"><button class="btn btn-header btn-tipo rock" id="rock">Rock</button></li>
+                <li class="nav-item"><button class="btn btn-header btn-tipo ghost" id="ghost">Ghost</button></li>
+                <li class="nav-item"><button class="btn btn-header btn-tipo dark" id="dark">Dark</button></li>
+                <li class="nav-item"><button class="btn btn-header btn-tipo dragon" id="dragon">Dragon</button></li>
+                <li class="nav-item"><button class="btn btn-header btn-tipo steel" id="steel">Steel</button></li>
+                <li class="nav-item"><button class="btn btn-header btn-tipo fairy" id="fairy">Fairy</button></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+
+        <div id="todos">
+            <div class="pokemon-todos" id="listaPokemon">
+            </div>
+        </div>
+    </main>
+
+    <script src="./main.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+
+</html>
