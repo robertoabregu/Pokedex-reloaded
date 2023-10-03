@@ -343,6 +343,7 @@ main {
 }
 
 .close-button {
+    display: none;
     position: absolute;
     top: 0px;
     right: 5px;

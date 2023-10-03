@@ -239,6 +239,7 @@ function mostrarModalPokemon (pokemonId) {
 
                             // Muestra el modal
                             pokemonModal.style.display = "block";
+                            closeModalButton.style.display = "block";
 
                             // Obtiene las imágenes de las evoluciones y las agrega a la lista
                             const evolutionList = document.getElementById("evolutionList");
@@ -278,6 +279,11 @@ function obtenerPokemonIdDesdeUrl (url) {
 function cerrarModalPokemon () {
     // Cierra el modal
     pokemonModal.style.display = "none";
+    closeModalButton.style.display = "none";
 }
+
+closeModalButton.addEventListener("click", () => {
+    cerrarModalPokemon();
+});
 
 obtenerPokemon("1gen", null);
