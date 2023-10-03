@@ -155,14 +155,6 @@ function mostrarPokemon (poke) {
     listaPokemon.append(div);
 }
 
-listaPokemon.addEventListener("click", (event) => {
-    const tarjetaPokemon = event.target.closest(".pokemon"); // Obtiene la tarjeta de Pokémon clickeada
-    if (tarjetaPokemon) {
-        const pokemonId = tarjetaPokemon.getAttribute("data-id");
-        console.log(pokemonId); // Llama a una función para mostrar el popup con el ID del Pokémon
-    }
-});
-
 botonesGeneracion.forEach(boton => boton.addEventListener("click", (event) => {
     const generacion = event.currentTarget.id;
     generacionSeleccionada = generacion;
@@ -174,5 +166,118 @@ botonesTipo.forEach(boton => boton.addEventListener("click", (event) => {
     tipoSeleccionado = tipo;
     obtenerPokemon(generacionSeleccionada, tipo); // Filtra Pokémon por tipo
 }));
+
+const pokemonModal = document.getElementById("pokemonModal");
+const closeModalButton = document.getElementById("closeModal");
+const modalPokemonInfo = document.getElementById("modalPokemonInfo");
+
+listaPokemon.addEventListener("click", (event) => {
+    const tarjetaPokemon = event.target.closest(".pokemon");
+    if (tarjetaPokemon) {
+        const pokemonId = tarjetaPokemon.getAttribute("data-id");
+        mostrarModalPokemon(pokemonId);
+    }
+});
+
+closeModalButton.addEventListener("click", () => {
+    cerrarModalPokemon();
+});
+
+function mostrarModalPokemon (pokemonId) {
+    const URL_POKEMON = `${URL_BASE}${pokemonId}`;
+    const URL_POKEMON_INFO = `${URL_BASE_MORE_INFO}${pokemonId}`;
+
+    fetch(URL_POKEMON)
+        .then((response) => response.json())
+        .then((pokemonData) => {
+            fetch(URL_POKEMON_INFO)
+                .then((response) => response.json())
+                .then((pokemonInfoData) => {
+                    // Ahora, realiza una tercera solicitud para obtener la información de evolution_chain.url
+                    fetch(pokemonInfoData.evolution_chain.url)
+                        .then((response) => response.json())
+                        .then((evolutionData) => {
+                            // Combina la información de los tres endpoints en un solo objeto
+                            const combinedPokemonData = {
+                                ...pokemonData,
+                                pokemonInfo: {
+                                    ...pokemonInfoData,
+                                    evolution_chain: evolutionData
+                                }
+                            };
+                            console.log(combinedPokemonData)
+
+                            let tipos = combinedPokemonData.types.map((type) =>
+                                `<p class="${type.type.name} tipo">${type.type.name}</p>`
+                            );
+                            tipos = tipos.join('');
+
+                            const modalContent = `
+                            <div class="pokemon-imagen">
+                                <img src="${combinedPokemonData.sprites.other["official-artwork"].front_default}" alt="${combinedPokemonData.name}">
+                            </div>
+                            <div class="pokemon-info">
+                                <div class="nombre-contenedor">
+                                    <p class="pokemon-id">#${combinedPokemonData.id}</p>
+                                    <h2 class="pokemon-nombre">${combinedPokemonData.name}</h2>
+                                </div>
+                                <div class="pokemon-tipos">
+                                    ${tipos}
+                                </div>
+                                <div class="pokemon-stats">
+                                    <p class="stat">${combinedPokemonData.height}0 cm</p>
+                                    <p class="stat">${combinedPokemonData.weight / 10} kg</p>
+                                </div>
+                                <div class="evolution">
+                                    <h3>Evolutions</h3>
+                                    <ul id="evolutionList"></ul>
+                                </div>
+                            </div>                                
+                            `;
+
+                            modalPokemonInfo.innerHTML = modalContent;
+
+                            // Muestra el modal
+                            pokemonModal.style.display = "block";
+
+                            // Obtiene las imágenes de las evoluciones y las agrega a la lista
+                            const evolutionList = document.getElementById("evolutionList");
+                            obtenerImagenesEvoluciones(combinedPokemonData.pokemonInfo.evolution_chain.chain, evolutionList);
+                        })
+                        .catch((error) => console.error("Error al cargar la cadena de evolución", error));
+                })
+                .catch((error) => console.error("Error al cargar el Pokémon Info", error));
+        })
+        .catch((error) => console.error("Error al cargar el Pokémon", error));
+}
+
+function obtenerImagenesEvoluciones (chain, evolutionList) {
+    if (chain && chain.species) { // Verificar si 'chain' y 'chain.species' están definidos
+        const pokemonId = obtenerPokemonIdDesdeUrl(chain.species.url);
+
+        fetch(`${URL_BASE}${pokemonId}`)
+            .then((response) => response.json())
+            .then((pokemonData) => {
+                const imageUrl = pokemonData.sprites.other["official-artwork"].front_default;
+                const listItem = document.createElement("li");
+                listItem.innerHTML = `<img src="${imageUrl}" alt="${pokemonData.name}"> ${pokemonData.name}`;
+                evolutionList.appendChild(listItem);
+
+                // Llama recursivamente para la siguiente evolución
+                obtenerImagenesEvoluciones(chain.evolves_to[0], evolutionList);
+            })
+            .catch((error) => console.error("Error al cargar la imagen de la evolución", error));
+    }
+}
+
+function obtenerPokemonIdDesdeUrl (url) {
+    const partesUrl = url.split("/");
+    return partesUrl[partesUrl.length - 2];
+}
+
+function cerrarModalPokemon () {
+    // Cierra el modal
+    pokemonModal.style.display = "none";
+}
 
 obtenerPokemon("1gen", null);
