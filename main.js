@@ -212,21 +212,57 @@ function mostrarModalPokemon (pokemonId) {
                             );
                             tipos = tipos.join('');
 
+                            const flavorText = pokemonInfoData.flavor_text_entries[6].flavor_text.replace(/\f/g, '');
+
                             const modalContent = `
                             <div class="pokemon-imagen">
                                 <img src="${combinedPokemonData.sprites.other["official-artwork"].front_default}" alt="${combinedPokemonData.name}">
                             </div>
-                            <div class="pokemon-info">
-                                <div class="nombre-contenedor">
-                                    <p class="pokemon-id">#${combinedPokemonData.id}</p>
-                                    <h2 class="pokemon-nombre">${combinedPokemonData.name}</h2>
+                            <div class="modal-pokemon-info">
+                                <div class="section-one">
+                                    <div class="nombre-contenedor">
+                                        <p class="pokemon-id">#${combinedPokemonData.id}</p>
+                                        <h2 class="pokemon-nombre">${combinedPokemonData.name}</h2>
+                                    </div>
+                                    <div class="pokemon-tipos">
+                                        ${tipos}
+                                    </div>
+                                    <div class="pokemon-stats">
+                                        <p class="stat">${combinedPokemonData.height}0 cm</p>
+                                        <p class="stat">${combinedPokemonData.weight / 10} kg</p>
+                                    </div>
                                 </div>
-                                <div class="pokemon-tipos">
-                                    ${tipos}
-                                </div>
-                                <div class="pokemon-stats">
-                                    <p class="stat">${combinedPokemonData.height}0 cm</p>
-                                    <p class="stat">${combinedPokemonData.weight / 10} kg</p>
+                                <div class="section-two">
+                                    <p class="pokemon-info-text">${flavorText}</p>
+                                </div>                                
+                                <div class="pokemon-stats-frame">
+                                    <h3>STATS</h3>
+                                    <div class="pokemon-stats-bar">
+                                        <div class="stats">
+                                            <p>HP</p>
+                                            <p>ATK</p>
+                                            <p>DEF</p>
+                                            <p>SPD</p>
+                                            <p>SPA</p>
+                                            <p>SPD</p>
+                                        </div>
+                                        <div class="bars slide-in-left">
+                                            <div class="stat-bar puff-in-ver" id="hp-bar"></div>
+                                            <div class="stat-bar puff-in-ver" id="atk-bar"></div>
+                                            <div class="stat-bar puff-in-ver" id="def-bar"></div>
+                                            <div class="stat-bar puff-in-ver" id="spd-bar"></div>
+                                            <div class="stat-bar puff-in-ver" id="spa-bar"></div>
+                                            <div class="stat-bar puff-in-ver" id="speed-bar"></div>
+                                        </div>
+                                        <div class="stats-values">
+                                            <p id="hp-value">${combinedPokemonData.stats[0].base_stat}</p>
+                                            <p id="atk-value">${combinedPokemonData.stats[1].base_stat}</p>
+                                            <p id="def-value">${combinedPokemonData.stats[2].base_stat}</p>
+                                            <p id="spd-value">${combinedPokemonData.stats[5].base_stat}</p>
+                                            <p id="spa-value">${combinedPokemonData.stats[4].base_stat}</p>
+                                            <p id="speed-value">${combinedPokemonData.stats[3].base_stat}</p>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="evolution">
                                     <h3>Evolutions</h3>
@@ -238,8 +274,11 @@ function mostrarModalPokemon (pokemonId) {
                             modalPokemonInfo.innerHTML = modalContent;
 
                             // Muestra el modal
-                            pokemonModal.style.display = "block";
-                            closeModalButton.style.display = "block";
+                            pokemonModal.style.display = "flex";
+                            closeModalButton.style.display = "flex";
+
+                            // Actualiza el ancho de las barras de estadísticas
+                            actualizarBarrasDeEstadisticas(combinedPokemonData);
 
                             // Obtiene las imágenes de las evoluciones y las agrega a la lista
                             const evolutionList = document.getElementById("evolutionList");
@@ -285,5 +324,23 @@ function cerrarModalPokemon () {
 closeModalButton.addEventListener("click", () => {
     cerrarModalPokemon();
 });
+
+function actualizarBarrasDeEstadisticas (pokemonData) {
+    // Obtén los valores de los stats del Pokémon
+    const hp = pokemonData.stats[0].base_stat;
+    const atk = pokemonData.stats[1].base_stat;
+    const def = pokemonData.stats[2].base_stat;
+    const spd = pokemonData.stats[3].base_stat;
+    const spa = pokemonData.stats[4].base_stat;
+    const speed = pokemonData.stats[5].base_stat;
+
+    // Actualiza el ancho de las barras de stats
+    document.getElementById("hp-bar").style.width = `${hp}%`;
+    document.getElementById("atk-bar").style.width = `${atk}%`;
+    document.getElementById("def-bar").style.width = `${def}%`;
+    document.getElementById("spd-bar").style.width = `${spd}%`;
+    document.getElementById("spa-bar").style.width = `${spa}%`;
+    document.getElementById("speed-bar").style.width = `${speed}%`;
+}
 
 obtenerPokemon("1gen", null);
