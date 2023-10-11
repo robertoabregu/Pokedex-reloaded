@@ -215,26 +215,29 @@ function mostrarModalPokemon (pokemonId) {
                             const flavorText = pokemonInfoData.flavor_text_entries[6].flavor_text.replace(/\f/g, '');
 
                             const modalContent = `
-                            <div class="pokemon-imagen">
-                                <img src="${combinedPokemonData.sprites.other["official-artwork"].front_default}" alt="${combinedPokemonData.name}">
-                            </div>
                             <div class="modal-pokemon-info">
-                                <div class="section-one">
-                                    <div class="nombre-contenedor">
-                                        <p class="pokemon-id">#${combinedPokemonData.id}</p>
-                                        <h2 class="pokemon-nombre">${combinedPokemonData.name}</h2>
+                                <div class="upper-data">
+                                    <div class="row row-cols-auto">
+                                        <div class="col col-md-6">
+                                            <img src="${combinedPokemonData.sprites.other["official-artwork"].front_default}" alt="${combinedPokemonData.name}">
+                                        </div>
+                                        <div class="col-md-6 col-data">
+                                            <h3 class="modal-pokemon-nombre">${combinedPokemonData.name}</h3>
+                                            <div class="modal-tipos">
+                                            ${tipos}
+                                            </div>
+                                            <div class="h-w">
+                                            <p class="stat">${combinedPokemonData.height}0 cm</p>
+                                            <p class="stat">${combinedPokemonData.weight / 10} kg</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="pokemon-tipos">
-                                        ${tipos}
+                                    <div class="row">
+                                        <div class="col-md-12 modal-pokemon-text">
+                                            <p>${flavorText}</p>
+                                        </div>
                                     </div>
-                                    <div class="pokemon-stats">
-                                        <p class="stat">${combinedPokemonData.height}0 cm</p>
-                                        <p class="stat">${combinedPokemonData.weight / 10} kg</p>
-                                    </div>
-                                </div>
-                                <div class="section-two">
-                                    <p class="pokemon-info-text">${flavorText}</p>
-                                </div>                                
+                                </div>                              
                                 <div class="pokemon-stats-frame">
                                     <h3>STATS</h3>
                                     <div class="pokemon-stats-bar">
@@ -246,13 +249,13 @@ function mostrarModalPokemon (pokemonId) {
                                             <p>SPA</p>
                                             <p>SPD</p>
                                         </div>
-                                        <div class="bars slide-in-left">
-                                            <div class="stat-bar puff-in-ver" id="hp-bar"></div>
-                                            <div class="stat-bar puff-in-ver" id="atk-bar"></div>
-                                            <div class="stat-bar puff-in-ver" id="def-bar"></div>
-                                            <div class="stat-bar puff-in-ver" id="spd-bar"></div>
-                                            <div class="stat-bar puff-in-ver" id="spa-bar"></div>
-                                            <div class="stat-bar puff-in-ver" id="speed-bar"></div>
+                                        <div class="bars ">
+                                            <div class="stat-bar slide-in-left" id="hp-bar"></div>
+                                            <div class="stat-bar slide-in-left" id="atk-bar"></div>
+                                            <div class="stat-bar slide-in-left" id="def-bar"></div>
+                                            <div class="stat-bar slide-in-left" id="spd-bar"></div>
+                                            <div class="stat-bar slide-in-left" id="spa-bar"></div>
+                                            <div class="stat-bar slide-in-left" id="speed-bar"></div>
                                         </div>
                                         <div class="stats-values">
                                             <p id="hp-value">${combinedPokemonData.stats[0].base_stat}</p>
