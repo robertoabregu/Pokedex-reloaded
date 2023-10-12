@@ -333,6 +333,13 @@ closeModalButton.addEventListener("click", () => {
     cerrarModalPokemon();
 });
 
+// Cerrar el modal al hacer clic en cualquier lugar fuera del modal
+document.addEventListener("click", (event) => {
+    if (event.target === pokemonModal) {
+        cerrarModalPokemon();
+    }
+});
+
 function actualizarBarrasDeEstadisticas (pokemonData) {
     // Obtén los valores de los stats del Pokémon
     const hp = pokemonData.stats[0].base_stat;

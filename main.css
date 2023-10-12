@@ -322,6 +322,7 @@ main {
 
 .modal-content {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
@@ -385,7 +386,7 @@ main {
 
 .row-cols-auto .col img {
     width: 100%;
-    max-width: 10rem;
+    max-width: 8rem;
 }
 
 @media screen and (min-width: 770px) {
@@ -467,9 +468,9 @@ h3 {
 }
 
 .close-button {
-    display: none;
-    position: relative;
-    top: 20%;
+    color: #6b6b6b;
+    display: flex;
+    justify-content: center;
     align-items: center;
     cursor: pointer;
     font-size: 2rem;
@@ -479,14 +480,14 @@ h3 {
 
 @media screen and (min-width: 770px) {
     .close-button {
-        display: none;
-        position: relative;
-        top: -1px;
+        display: flex;
+        justify-content: center;
         align-items: center;
         cursor: pointer;
         font-size: 2rem;
         width: 20px;
         height: 20px;
+        margin: auto;
     }
 }
 
@@ -495,9 +496,7 @@ h3 {
 }
 
 .b-close {
-    position: relative;
-    top: 10px;
-    left: 45%;
+    display: flex;
     background-color: var(--clr-gray);
     padding: .5rem;
     border-radius: 100vmax;
@@ -506,13 +505,12 @@ h3 {
     font-weight: 600;
     box-shadow: 0 0 1rem rgba(0, 0, 0, .25);
     transition: .2s;
+    margin: 2% auto 2% auto;
 }
 
 @media screen and (min-width: 770px) {
     .b-close {
-        position: relative;
-        top: -50px;
-        left: 50%;
+        display: flex;
         background-color: var(--clr-gray);
         padding: .5rem;
         border-radius: 100vmax;
@@ -521,6 +519,7 @@ h3 {
         font-weight: 600;
         box-shadow: 0 0 1rem rgba(0, 0, 0, .25);
         transition: .2s;
+        margin: 2% auto 2% auto;
     }
 }
 
@@ -572,7 +571,14 @@ h3 {
 
 #evolutionList li img {
     width: 100%;
-    width: 5rem;
+    width: 6rem;
+}
+
+@media screen and (min-width: 770px) {
+    #evolutionList li img {
+        width: 100%;
+        width: 5rem;
+    }
 }
 
 @media screen and (min-width: 770px) {
