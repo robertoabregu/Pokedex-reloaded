@@ -292,6 +292,11 @@ function mostrarModalPokemon (pokemonId) {
                 .catch((error) => console.error("Error al cargar el Pokémon Info", error));
         })
         .catch((error) => console.error("Error al cargar el Pokémon", error));
+
+    setTimeout(() => {
+        // Actualiza el ancho de las barras de estadísticas con un retraso
+        actualizarBarrasDeEstadisticas(combinedPokemonData);
+    }, 1000); // Puedes ajustar el valor del retraso según tu preferencia
 }
 
 function obtenerImagenesEvoluciones (chain, evolutionList) {

@@ -206,7 +206,7 @@ main {
 }
 
 .legendary {
-    background-color: #ffe6bc;
+    background-color: #e6b869;
 }
 
 .stat {
@@ -348,7 +348,6 @@ main {
     align-items: center;
     row-gap: .5rem;
     width: 90%;
-    margin-top: 7%;
 }
 
 .modal-tipos {
@@ -366,17 +365,34 @@ main {
 
 .row-cols-auto {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     min-width: 350px;
     align-items: center;
     justify-content: center;
     width: 100%;
+    row-gap: 1rem;
+}
+
+@media screen and (min-width: 770px) {
+    .row-cols-auto {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        min-width: 350px;
+    }
 }
 
 .row-cols-auto .col img {
     width: 100%;
-    max-width: 6rem;
-    margin: 0 1rem .5rem;
+    max-width: 10rem;
+}
+
+@media screen and (min-width: 770px) {
+    .row-cols-auto .col img {
+        width: 100%;
+        max-width: 8rem;
+    }
 }
 
 .col-md-6 {
@@ -384,18 +400,6 @@ main {
     justify-content: center;
     align-items: center;
     row-gap: .5rem;
-}
-
-@media screen and (min-width: 470px) {
-    .row-cols-auto img {
-        max-width: 8rem;
-    }
-}
-
-@media screen and (min-width: 700px) {
-    .row-cols-auto img {
-        max-width: 10rem;
-    }
 }
 
 .row-cols-auto .col-data {
@@ -464,16 +468,65 @@ h3 {
 
 .close-button {
     display: none;
-    position: absolute;
-    top: 0px;
-    right: 5px;
-    padding: 10px;
+    position: relative;
+    top: 20%;
+    align-items: center;
     cursor: pointer;
     font-size: 2rem;
+    width: 20px;
+    height: 20px;
+}
+
+@media screen and (min-width: 770px) {
+    .close-button {
+        display: none;
+        position: relative;
+        top: -1px;
+        align-items: center;
+        cursor: pointer;
+        font-size: 2rem;
+        width: 20px;
+        height: 20px;
+    }
 }
 
 .close-button:hover {
     color: red;
+}
+
+.b-close {
+    position: relative;
+    top: 10px;
+    left: 45%;
+    background-color: var(--clr-gray);
+    padding: .5rem;
+    border-radius: 100vmax;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: 600;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, .25);
+    transition: .2s;
+}
+
+@media screen and (min-width: 770px) {
+    .b-close {
+        position: relative;
+        top: -50px;
+        left: 50%;
+        background-color: var(--clr-gray);
+        padding: .5rem;
+        border-radius: 100vmax;
+        cursor: pointer;
+        text-transform: uppercase;
+        font-weight: 600;
+        box-shadow: 0 0 1rem rgba(0, 0, 0, .25);
+        transition: .2s;
+    }
+}
+
+.b-close:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 2rem rgba(0, 0, 0, .25);
 }
 
 .evolution {
@@ -484,17 +537,6 @@ h3 {
     gap: 1rem;
     font-size: 1rem;
     font-weight: 500;
-}
-
-.row-cols-auto .col img {
-    width: 100%;
-    max-width: 8rem;
-}
-
-@media screen and (min-width: 700px) {
-    .row-cols-auto .col img {
-        max-width: 8rem;
-    }
 }
 
 .evolution h3 {
@@ -530,7 +572,7 @@ h3 {
 
 #evolutionList li img {
     width: 100%;
-    width: 6rem;
+    width: 5rem;
 }
 
 @media screen and (min-width: 770px) {
@@ -635,47 +677,6 @@ h3 {
     /* Inicialmente, la barra está vacía */
     transition: width 0.5s ease-in-out;
     /* Animación de relleno */
-}
-
-.puff-in-ver {
-    -webkit-animation: puff-in-ver .7s cubic-bezier(.47, 0.000, .745, .715) both;
-    animation: puff-in-ver .7s cubic-bezier(.47, 0.000, .745, .715) both
-}
-
-@-webkit-keyframes puff-in-ver {
-    0% {
-        -webkit-transform: scaleY(2);
-        transform: scaleY(2);
-        -webkit-filter: blur(4px);
-        filter: blur(4px);
-        opacity: 0
-    }
-
-    100% {
-        -webkit-transform: scaleY(1);
-        transform: scaleY(1);
-        -webkit-filter: blur(0);
-        filter: blur(0);
-        opacity: 1
-    }
-}
-
-@keyframes puff-in-ver {
-    0% {
-        -webkit-transform: scaleY(2);
-        transform: scaleY(2);
-        -webkit-filter: blur(4px);
-        filter: blur(4px);
-        opacity: 0
-    }
-
-    100% {
-        -webkit-transform: scaleY(1);
-        transform: scaleY(1);
-        -webkit-filter: blur(0);
-        filter: blur(0);
-        opacity: 1
-    }
 }
 
 /* ----------------------------------------------
