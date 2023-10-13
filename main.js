@@ -77,7 +77,6 @@ function obtenerPokemon (generacion, tipo = null) {
             // Ordenar el array por ID de menor a mayor
             pokemonArray.sort((a, b) => a.id - b.id);
             // Mostrar los Pokémon ordenados
-            console.log(pokemonArrayLegendary)
             pokemonArray.forEach(poke => mostrarPokemon(poke,));
         }
     }
@@ -116,6 +115,10 @@ function mostrarPokemon (poke) {
     );
     tipos = tipos.join('');
 
+    const imageUrl = poke.sprites.other["official-artwork"].front_default
+        ? poke.sprites.other["official-artwork"].front_default
+        : 'img/no-pokemon.image.png'; // Ruta de tu imagen local
+
     let pokeId = poke.id.toString();
     if (pokeId.length === 1) {
         pokeId = "00" + pokeId;
@@ -136,7 +139,7 @@ function mostrarPokemon (poke) {
     div.innerHTML = `
     <p class="pokemon-id-back">#${pokeId}</p>
     <div class="pokemon-imagen">
-        <img src="${poke.sprites.other["official-artwork"].front_default}" alt="${poke.name}">
+        <img src="${imageUrl}" alt="${poke.name}">
     </div>
     <div class="pokemon-info">
         <div class="nombre-contenedor">
@@ -179,10 +182,6 @@ listaPokemon.addEventListener("click", (event) => {
     }
 });
 
-closeModalButton.addEventListener("click", () => {
-    cerrarModalPokemon();
-});
-
 function mostrarModalPokemon (pokemonId) {
     const URL_POKEMON = `${URL_BASE}${pokemonId}`;
     const URL_POKEMON_INFO = `${URL_BASE_MORE_INFO}${pokemonId}`;
@@ -205,21 +204,30 @@ function mostrarModalPokemon (pokemonId) {
                                     evolution_chain: evolutionData
                                 }
                             };
-                            console.log(combinedPokemonData)
 
                             let tipos = combinedPokemonData.types.map((type) =>
                                 `<p class="${type.type.name} tipo">${type.type.name}</p>`
                             );
                             tipos = tipos.join('');
 
-                            const flavorText = pokemonInfoData.flavor_text_entries[6].flavor_text.replace(/\f/g, '');
+                            let flavorText = "Todavía no hay descripción disponible";
+                            if (pokemonInfoData && pokemonInfoData.flavor_text_entries && pokemonInfoData.flavor_text_entries.length > 6) {
+                                flavorText = pokemonInfoData.flavor_text_entries[6].flavor_text.replace(/\f/g, '');
+                                if (!flavorText) {
+                                    flavorText = "Todavía no hay descripción disponible";
+                                }
+                            }
+
+                            const imageUrl = combinedPokemonData.sprites.other["official-artwork"].front_default
+                                ? combinedPokemonData.sprites.other["official-artwork"].front_default
+                                : 'img/no-pokemon.image.png'; // Ruta de tu imagen local
 
                             const modalContent = `
                             <div class="modal-pokemon-info">
                                 <div class="upper-data">
                                     <div class="row row-cols-auto">
                                         <div class="col col-md-6">
-                                            <img src="${combinedPokemonData.sprites.other["official-artwork"].front_default}" alt="${combinedPokemonData.name}">
+                                            <img src="${imageUrl}" alt="${combinedPokemonData.name}">
                                         </div>
                                         <div class="col-md-6 col-data">
                                             <h3 class="modal-pokemon-nombre">${combinedPokemonData.name}</h3>
@@ -292,11 +300,6 @@ function mostrarModalPokemon (pokemonId) {
                 .catch((error) => console.error("Error al cargar el Pokémon Info", error));
         })
         .catch((error) => console.error("Error al cargar el Pokémon", error));
-
-    setTimeout(() => {
-        // Actualiza el ancho de las barras de estadísticas con un retraso
-        actualizarBarrasDeEstadisticas(combinedPokemonData);
-    }, 1000); // Puedes ajustar el valor del retraso según tu preferencia
 }
 
 function obtenerImagenesEvoluciones (chain, evolutionList) {
@@ -306,7 +309,9 @@ function obtenerImagenesEvoluciones (chain, evolutionList) {
         fetch(`${URL_BASE}${pokemonId}`)
             .then((response) => response.json())
             .then((pokemonData) => {
-                const imageUrl = pokemonData.sprites.other["official-artwork"].front_default;
+                const imageUrl = pokemonData.sprites.other["official-artwork"].front_default
+                    ? pokemonData.sprites.other["official-artwork"].front_default
+                    : 'img/no-pokemon.image.png'; // Ruta de tu imagen local
                 const listItem = document.createElement("li");
                 listItem.innerHTML = `<img src="${imageUrl}" alt="${pokemonData.name}"> ${pokemonData.name}`;
                 evolutionList.appendChild(listItem);
@@ -333,7 +338,7 @@ closeModalButton.addEventListener("click", () => {
     cerrarModalPokemon();
 });
 
-// Cerrar el modal al hacer clic en cualquier lugar fuera del modal
+// Cerrar modal haciendo click en cualquier lado
 document.addEventListener("click", (event) => {
     if (event.target === pokemonModal) {
         cerrarModalPokemon();

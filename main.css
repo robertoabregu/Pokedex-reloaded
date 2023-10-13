@@ -444,6 +444,11 @@ h3 {
     row-gap: 1rem;
 }
 
+.modal-pokemon-info.legendary {
+    background-color: gold;
+    color: var(--clr-black);
+}
+
 .modal-pokemon-text {
     display: flex;
     flex-wrap: wrap;
